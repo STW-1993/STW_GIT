@@ -19,7 +19,7 @@ int main()
 	
 	memset(logstring,0,sizeof(logstring));
 
-	sprintf(logstring,"echo %04d-%02d-%02d  %02d:%02d:%02d $(cat /work/huangzhiwei/test/hello.txt) > /work/huangzhiwei/test/log-test",
+	sprintf(logstring,"echo %04d-%02d-%02d  %02d:%02d:%02d $(cat /work/huangzhiwei/test/006_hello.txt) > /work/huangzhiwei/test/log-test",
 		pTimeCur->tm_year+1900,pTimeCur->tm_mon+1,pTimeCur->tm_mday,pTimeCur->tm_hour,pTimeCur->tm_min,pTimeCur->tm_sec);
 	system(logstring);
 	
