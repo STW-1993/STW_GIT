@@ -1,6 +1,6 @@
 #!/bin/bash
 
-while getopts ":t:m:d:" optname
+while getopts ":t:m:d" optname
 do
 	case $optname in
 	t)
@@ -12,8 +12,7 @@ do
 	echo "${mm}"
 	;;
 	d)
-	dd=${OPTARG}
-	echo "${dd}"
+	echo "使用了d选项"
 	;;
 	:)
 	echo "No argument value for option $OPTARG"    #如果t、m、d后面没带参数，就会打印No argument value for option t\m\d
