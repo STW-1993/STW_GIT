@@ -44,7 +44,7 @@ void rec_fun1(int row, int col, int ret)
 	if (m == 0)
 		arr[row][col] = n++;
 
-#if 1        //打印每一个脚步
+#if 0        //打印每一个脚步
 	if (m == 0)
 	{
 		for (i = 0; i < MAX_ROW; i++)
@@ -118,11 +118,9 @@ void rec_fun1(int row, int col, int ret)
 
 /*
  *	函数名称：rec_fun2
- *	函数作用：跑迷宫
+ *	函数作用：根据已经保存的路线记录图array数组，找出最优路线的坐标
  *	参数含义：row        此参数指的是当前位置的横坐标
  *	          col   此参数指的是当前坐标的纵坐标
- *	          ret   此参数指的是上一次坐标到达当前坐标的方向(ret = 5表示开始，1表示向上，2表示向下，
- *	                                                                          3表示向左，4表示向右)
  */
 
 void rec_fun2(int row, int col)
