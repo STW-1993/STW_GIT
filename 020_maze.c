@@ -6,19 +6,21 @@
 #include <string.h>
 
 
-#define MAX_ROW 8
-#define MAX_COL 8
+#define MAX_ROW 9
+#define MAX_COL 9
 
 //下面的数组就是迷宫的模型，要改变迷宫改变这里的数据和上面两个宏MAX_ROW，MAX_COL即可
 int arr[MAX_ROW][MAX_COL] = {
-		0, 0, 1, 1, 0, 0, 0, 1,
-		1, 0, 0, 0, 1, 0, 0, 0,
-		1, 0, 0, 0, 1, 0, 1, 0,
-		1, 0, 0, 0, 1, 0, 1, 0,
-		0, 1, 0, 1, 0, 0, 1, 0,
-		0, 0, 0, 1, 0, 1, 0, 0,
-		0, 1, 1, 0, 0, 1, 0, 1,
-		0, 0, 0, 0, 1, 1, 0, 0,
+		0, 0, 0, 0, 0, 1, 0, 0, 0, 
+		1, 0, 0, 0, 0, 1, 0, 1, 0, 
+		1, 0, 0, 0, 0, 1, 0, 1, 0, 
+		1, 1, 1, 0, 1, 1, 0, 1, 0, 
+		0, 0, 0, 0, 1, 0, 0, 1, 0, 
+		0, 1, 1, 1, 1, 0, 1, 1, 0, 
+		0, 0, 0, 0, 0, 0, 1, 0, 0, 
+		0, 0, 0, 0, 1, 0, 1, 0, 0, 
+		0, 0, 0, 0, 1, 0, 0, 1, 0, 
+		
 	};
 
 int array[MAX_ROW][MAX_COL];    //刚走出迷宫时，已走过的路线记录图
@@ -44,7 +46,7 @@ void rec_fun1(int row, int col, int ret)
 	if (m == 0)
 		arr[row][col] = n++;
 
-#if 0        //打印每一个脚步，按需求打开或者关闭
+#if 1        //打印每一个脚步，按需求打开或者关闭
 	if (m == 0)
 	{
 		for (i = 0; i < MAX_ROW; i++)
@@ -63,11 +65,11 @@ void rec_fun1(int row, int col, int ret)
 	if (row == MAX_ROW -1 && col == MAX_COL -1)
 	{	
 		m = 2;
-
+		
 		for (i = 0; i < MAX_ROW; i++)
 			for (j = 0; j < MAX_COL; j++)
 				array[i][j]=arr[i][j];
-			
+
 		return;
 	}
 
@@ -75,44 +77,44 @@ void rec_fun1(int row, int col, int ret)
 	{
 		tmp = 4;
 		
-		if (ret != 3)
+		if (ret != 3 && m == 0)
 		{
 			rec_fun1(row, col + 1, tmp);
 			if (m == 0)
-				arr[row][col + 1] += MAX_ROW * MAX_COL * 100;   //没走到出口，涂掉错误的支路
+				arr[row][col + 1] = MAX_ROW * MAX_COL * 100;   //没走到出口，涂掉错误的支路
 		}
 	}
 	if (col - 1 >= 0 && arr[row ][col - 1] == 0)  //左
 	{
 		tmp = 3;
 		
-		if (ret != 4)
+		if (ret != 4 && m == 0)
 		{	
 			rec_fun1(row, col - 1, tmp);
 			if (m == 0)
-				arr[row][col - 1] += MAX_ROW * MAX_COL * 100;   //没走到出口，涂掉错误的支路
+				arr[row][col - 1] = MAX_ROW * MAX_COL * 100;   //没走到出口，涂掉错误的支路
 		}
 	}
 	if (row + 1 <= MAX_ROW - 1 && arr[row + 1][col] == 0) //下
 	{
 		tmp = 2;
 
-		if (ret != 1)
+		if (ret != 1 && m == 0)
 		{	
 			rec_fun1(row + 1, col, tmp);
 			if (m == 0)
-				arr[row + 1][col] += MAX_ROW * MAX_COL * 100;   //没走到出口，涂掉错误的支路
+				arr[row + 1][col] = MAX_ROW * MAX_COL * 100;   //没走到出口，涂掉错误的支路
 		}
 	}
 	if (row - 1 >= 0 && (arr[row - 1][col] == 0))  //上
 	{
 		tmp = 1;
 		
-		if (ret != 2)
+		if (ret != 2 && m == 0)
 		{
 			rec_fun1(row - 1, col, tmp);
 			if (m == 0)
-				arr[row - 1][col] += MAX_ROW * MAX_COL * 100;   //没走到出口，涂掉错误的支路
+				arr[row - 1][col] = MAX_ROW * MAX_COL * 100;   //没走到出口，涂掉错误的支路
 		}
 	}
 }
@@ -133,11 +135,11 @@ void rec_fun2(int row, int col)
 	num[k][1] = col;
 	k++;
 	
-	if (row == MAX_ROW -1 && col == MAX_COL -1)
+	if ((row == MAX_ROW -1 && col == MAX_COL -1) || m == 0)
 	{	
 		return;
 	}
-	
+
 	if (col + 1 <= MAX_COL - 1 && array[row][col + 1] < MAX_ROW * MAX_COL * 100) //右，   避免出界和避开涂抹的支路
 	{
 		tmp[0][0] = array[row][col + 1];
