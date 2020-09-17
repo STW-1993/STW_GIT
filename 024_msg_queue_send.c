@@ -2,7 +2,7 @@
  * 消息队列的训练
  */
 
-#include "024_msg_queue.h"
+#include "test.h"
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/ipc.h>
@@ -34,10 +34,9 @@ int main(void)
 	}
 
 	Msg m;
-	m.type = MSG_TYPE;
 	
-	printf("please input your name and age: ");
-	scanf("%s %d", m.name, &m.age);
+	printf("please input your  name and age: \n\r");
+	scanf("%ld %s %d",&m.type, m.name, &m.age);
 
 	/* 0、函数原型：int msgsnd(int msqid, const void *msgp, size_t msgsz, int msgflg); 
 	 * 1、功能：将msgp消息写入标识为msgid的消息队列

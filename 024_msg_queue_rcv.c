@@ -2,7 +2,7 @@
  * 消息队列的训练
  */
 
-#include "024_msg_queue.h"
+#include "test.h"
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/ipc.h>
@@ -32,13 +32,14 @@ int main(void)
 	 * 4、参数msgsz：要接收的消息的大小不包含消息类型long mtype占用的字节
 	 * 5、msgflg：如果是0标识表示没有指定类型的消息就一直等待，如果是IPC_NOWAIT 则表示不等待
 	 */
-	msgrcv(msgid, &rcv, sizeof(rcv)-sizeof(type), MSG_TYPE, 0); 
-	printf("rcv_name:%s rcv_age:%d \n\r", rcv.name, rcv.age);
+	while (msgrcv(msgid, &rcv, sizeof(rcv)-sizeof(type), 0, 0) > 0)
+		if (rcv.type == MSG_TYPE)
+			printf("rcv_type:%ld rcv_name:%s rcv_age:%d \n\r", rcv.type, rcv.name, rcv.age);
 
 	/* 0、函数原型：int msgctl(int msqid, int cmd, struct msqid_ds *buf); 
 	 * 1、msgctl(msgid,IPC_RMID，NULL);    //一般用于删除消息队列对象
 	 */
-	msgctl(msgid, IPC_RMID, NULL);
+	//msgctl(msgid, IPC_RMID, NULL);
 	
 	return 0;
 	
