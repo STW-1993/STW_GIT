@@ -55,8 +55,8 @@ int main(void)
 	}
 #endif
 	for (i = 0; i < sizeof(arr)/sizeof(arr[0][0]); i++) {
-		for (j = 0; j < sizeof(arr)/sizeof(arr[0][0]); j++) {
-			if (arr[i/5][i%5] > arr[j/5][j%5]) {
+		for (j = sizeof(arr)/sizeof(arr[0][0]) - 1; j > i; j--) {
+			if (arr[i/5][i%5] < arr[j/5][j%5]) {
 				tmp = arr[i/5][i%5];
 				arr[i/5][i%5] = arr[j/5][j%5];
 				arr[j/5][j%5] = tmp;
@@ -64,7 +64,13 @@ int main(void)
 		}
 	}
 
-	printf("第%d大的数为：%d\n\r", a, arr[(a-1)/5][(a-1)%5]);
+	for (i = 0; i < 4; i++) {
+			for (j = 0; j < 5; j++) {
+				printf("%d	", arr[i][j]);
+			}
+			printf("\n\r");
+	}
+	printf("第%d大的数为：%d 时间复杂度：%d \n\r", a, arr[(a-1)/5][(a-1)%5]);
 
 	for (i = 0; i < 4; i++) {
 		for (j = 0; j < 5; j++) {
