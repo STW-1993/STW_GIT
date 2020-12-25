@@ -31,29 +31,6 @@ int main(void)
 	printf("请输入要显示的以上4x5矩阵的第几大的数：");
 	scanf("%d", &a);
 	
-#if 0   //这种方法和下面那种方法效率是一样的，不过下面那种显得好看
-	for (k = 0; k < sizeof(arr)/arr[0][0]; k++) {
-		for (i = 0; i < 4; i++) {
-			for (j = 0; j < 5; j++) {
-				if (j == 4) {
-					if (i == 3) {
-						continue;
-					}
-					else if (arr[i][j] < arr[i+1][0]) {
-						tmp = arr[i][j];
-						arr[i][j] = arr[i+1][0];
-						arr[i+1][0] = tmp;
-					}
-				}
-				else if (arr[i][j] < arr[i][j+1]) {
-					tmp = arr[i][j];
-					arr[i][j] = arr[i][j+1];
-					arr[i][j+1] = tmp;
-				}
-			}
-		}
-	}
-#endif
 	for (i = 0; i < sizeof(arr)/sizeof(arr[0][0]); i++) {
 		for (j = sizeof(arr)/sizeof(arr[0][0]) - 1; j > i; j--) {
 			if (arr[i/5][i%5] < arr[j/5][j%5]) {
@@ -65,12 +42,12 @@ int main(void)
 	}
 
 	for (i = 0; i < 4; i++) {
-			for (j = 0; j < 5; j++) {
-				printf("%d	", arr[i][j]);
-			}
-			printf("\n\r");
+		for (j = 0; j < 5; j++) {
+			printf("%d	", arr[i][j]);
+		}
+		printf("\n\r");
 	}
-	printf("第%d大的数为：%d 时间复杂度：%d \n\r", a, arr[(a-1)/5][(a-1)%5]);
+	printf("第%d大的数为：%d \n\r", a, arr[(a-1)/5][(a-1)%5]);
 
 	for (i = 0; i < 4; i++) {
 		for (j = 0; j < 5; j++) {
