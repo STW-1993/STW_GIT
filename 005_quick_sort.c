@@ -5,7 +5,7 @@
 
 #define ARRNUM(x) (sizeof(x))/(sizeof(x[0]))
 
-void quick_sort_swap(int arr,int start,int end)
+void quick_sort_swap(int *arr,int start,int end)
 {
 	if(start >= end)
 	{
@@ -29,7 +29,7 @@ void quick_sort_swap(int arr,int start,int end)
 		*(arr+right) = temp;
 	}
 
-	if(*(arr+left) >= mid_num)
+	if(*(arr+left) >= *(arr + end))
 	{
 		temp = *(arr+left);
 		*(arr+left) = *(arr+end);
@@ -43,12 +43,11 @@ void quick_sort_swap(int arr,int start,int end)
 	if(left)
 	{
 		quick_sort_swap(arr,start,left - 1);
-		quick_sort_swap(arr,left + 1,end);
 	}
-	
+	quick_sort_swap(arr,left + 1,end);
 }
 
-void quick_sort(int arr,int len)
+void quick_sort(int *arr,int len)
 {
 	quick_sort_swap(arr,0,len -1);
 }
@@ -57,10 +56,6 @@ int main()
 {
 	int arr[]={100,2,322,40,5,6,7,18,9,10,13,12};
 
-	int m =9;
-	int &x = m;
-	x= 10;
-	printf("");
 	int i,n;
 	n = ARRNUM(arr);
 
