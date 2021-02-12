@@ -33,7 +33,7 @@ int main(void)
 
 #endif
 
-#if 0
+#if 0 
 	struct tm *tm_nowlocaltime;
 
 	time_t *p_sys_time1 = (time_t *)malloc(sizeof(time_t));
