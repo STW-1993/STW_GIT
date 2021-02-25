@@ -1,0 +1,2 @@
+--可能不会执行export
+export PATH=$(echo -n /disk2/eldk-5.6/armv7a-hf/sysroots/i686-eldk-linux/usr/bin/arm-linux-gnueabi:$PATH|awk 'BEGIN{RS=ORS=":"}!a[$0]++')
