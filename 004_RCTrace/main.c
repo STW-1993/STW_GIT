@@ -11,7 +11,11 @@ int main(int argc, char **argv)
 
 	int aaa = 1000;
 
-	RCTrace(500, "aaa: %d\n\r", aaa);
+	int i;
+	for (i=0; i < 10; i++) {
+		RCTrace(0, "[%s %s] %s: %s: %d aaa: %d\n\r", __DATE__, __TIME__, __FILE__, __func__, __LINE__, 
+				aaa * i);
+	}
 
 	return 0;
 }

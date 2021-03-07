@@ -1,0 +1,5 @@
+github无法访问的解决方法(临时)
+1）在网站http://tool.chinaz.com/dns?type=1&host=www.github.com&ip=    中得到TTL值最小的IP
+2)  在自己电脑的C:\Windows\System32\drivers\etc路径下找到hosts文件，将其复制到桌面进行修改
+3)  在hosts文件的最后插入：xxx.xxx.xxx.xxx    github.com     (注：xxx.xxx.xxx.xxx就是步骤一中获得的TTL值最小的IP)   
+4)  重新访问github即可正常访问，但这种方法无法永久解决此类问题，所以要时不时修改一次

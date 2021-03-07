@@ -2,25 +2,23 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdarg.h>
+#include <unistd.h>
 #include "RCTrace.h"
 
-#define G_ARRY_LEFT 20
-int g_arry[G_ARRY_LEFT][2];
+int g_arr[G_ARR_NUM][2];
 
-
-//使用变参的知识解决
-void RCTrace(int nLv,char *format,...)
+void RCTraceDBG(int nLv,char *format,...)
 {	
 	int i;
 	va_list args;
 	va_start(args,format);
 
-	for (i=0; i < G_ARRY_LEFT; i++) {
-		if (g_arry[i][0] == 0) {
+	for (i=0; i < G_ARR_NUM; i++) {
+		if (g_arr[i][0] == 0) {
 			break;
 		}
 		else {
-			if (nLv >= g_arry[i][0] && nLv <= g_arry[i][1]) {
+			if (nLv >= g_arr[i][0] && nLv <= g_arr[i][1]) {
 				vprintf(format,args);
 			}
 		}
@@ -33,9 +31,6 @@ void InitRCTrace(int argc, char **argv)
 	int ch;
 	char *pInitString = NULL;
 
-	if (argc != 2) {
-		printf("应该带1个参数！\n\r");
-	}
 	ch = getopt(argc, argv, "hd:t:");
 	switch (ch) {
 		case 'd':
@@ -57,10 +52,6 @@ void RCTraceLevelManager(char *pInitString)
 	char buff[1000];
 	
 	pstr_start = strstr(pInitString, "e:");
-	if(!pstr_start) {
-		printf("输入打印等级字符串格式错误！！\n\r");
-	}
-
 	pstr_start += 2;
 	pstr_end = strstr(pstr_start, ";aS");
 	*pstr_end = '\0';
@@ -69,17 +60,15 @@ void RCTraceLevelManager(char *pInitString)
 	strcpy(buff, pstr_start);
 	
 	pToken = strtok(buff, pDelimiter);
-	
-	while(pToken)
-	{
+	while(pToken) {
 		if(strpbrk(pToken, "-") != NULL) {
-			sscanf(pToken, "%d-%d", &g_arry[i][0], &g_arry[i][1]);
+			sscanf(pToken, "%d-%d", &g_arr[i][0], &g_arr[i][1]);
 		}
 		else {
-			g_arry[i][0] = atoi(pToken);
-			g_arry[i][1] = atoi(pToken);
+			g_arr[i][0] = atoi(pToken);
+			g_arr[i][1] = atoi(pToken);
 		}
-		pToken = strtok(NULL,pDelimiter);
+		pToken = strtok(NULL, pDelimiter);
 		i++;
 	}
 }
